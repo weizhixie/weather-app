@@ -1,4 +1,4 @@
 import "./styles.css";
-import { formatWeatherData } from "./weather-data";
+import { fetchWeatherData } from "./weather-data.js";
 
-console.log(await formatWeatherData());
+console.log(await fetchWeatherData());

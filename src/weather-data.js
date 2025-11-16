@@ -1,23 +1,22 @@
-async function fetchWeatherData() {
-  let location = "london";
-  let units = "metric";
+export async function fetchWeatherData(location = "london", units = "metric") {
+  const API_KEY = "YQ54MUWZFCVRUGYE9869NNRCW";
 
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${units}&key=YQ54MUWZFCVRUGYE9869NNRCW&elements=datetime,tempmax,tempmin,temp,feelslike,precipprob,preciptype,humidity,windspeed,winddir,pressure,visibility,cloudcover,uvindex,conditions,icon,sunrise,sunset,description`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${units}&key=${API_KEY}&elements=datetime,tempmax,tempmin,temp,feelslike,precipprob,preciptype,humidity,windspeed,winddir,pressure,visibility,cloudcover,uvindex,conditions,icon,sunrise,sunset,description`,
     );
     if (!response.ok) throw new Error(`Response status: ${response.status}`);
 
     const responseData = await response.json();
-    return responseData;
+
+    return formatWeatherData(responseData);
   } catch (error) {
     console.error(`Failed to fetch weather rawData: ${error}`);
     return null;
   }
 }
 
-export async function formatWeatherData() {
-  const rawData = await fetchWeatherData();
+function formatWeatherData(rawData) {
   if (!rawData) return null;
 
   const currentConditions = {
