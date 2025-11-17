@@ -1,4 +1,6 @@
 import "./styles.css";
 import { fetchWeatherData } from "./weather-data.js";
+import { AppUI } from "./app-ui.js";
 
-console.log(await fetchWeatherData());
+const ui = new AppUI();
+ui.handleSearchInput(fetchWeatherData);
