@@ -44,9 +44,62 @@ export class AppUI {
   renderWeatherDetails(weatherData) {
     const { currentConditions, days } = weatherData;
 
-    document.body.appendChild(
+    const weatherLocation = document.createElement("h1");
+    weatherLocation.classList.add("weather-location");
+    weatherLocation.textContent = `${weatherData.address.toUpperCase()}`;
+
+    document.body.append(
+      weatherLocation,
+      this.createWeatherSection(currentConditions, days),
       this.createWeatherStatsTable(currentConditions, days),
     );
+  }
+
+  createWeatherSection(currentConditions, days) {
+    const weatherSection = document.createElement("section");
+    weatherSection.classList.add("weather-section");
+
+    const iconTempWrapper = document.createElement("div");
+    iconTempWrapper.classList.add("icon-temp-wrapper");
+    const weatherIcon = document.createElement("img");
+    weatherIcon.classList.add("weather-icon");
+    import(`./assets/weather-icons/${currentConditions.icon}.png`)
+      .then((icon) => {
+        weatherIcon.src = icon.default;
+      })
+      .catch((error) => console.error(`Failed to load icon ${error}`));
+
+    const tempWrapper = document.createElement("div");
+    const currentTemp = document.createElement("p");
+    currentTemp.classList.add("current-temp");
+    currentTemp.textContent = `${currentConditions.temp}\u2103`;
+    const highLowTemp = document.createElement("p");
+    highLowTemp.textContent = `High:${days[0].tempmax}\u2103 Low:${days[0].tempmin}\u2103`;
+
+    const timeCondWrapper = document.createElement("div");
+    timeCondWrapper.classList.add("time-cond-wrapper");
+    const today = new Date();
+    const currentTime = document.createElement("p");
+    currentTime.classList.add("current-time");
+    currentTime.textContent = today.toLocaleString(undefined, {
+      hour: "numeric",
+      minute: "numeric",
+    });
+    const currentDatetime = document.createElement("p");
+    currentDatetime.textContent = today.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+    const condition = document.createElement("p");
+    condition.textContent = currentConditions.conditions;
+
+    tempWrapper.append(currentTemp, highLowTemp);
+    iconTempWrapper.append(weatherIcon, tempWrapper);
+    timeCondWrapper.append(currentTime, currentDatetime, condition);
+    weatherSection.append(iconTempWrapper, timeCondWrapper);
+
+    return weatherSection;
   }
 
   createWeatherStatsTable(currentConditions, days) {
