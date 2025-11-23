@@ -3,11 +3,6 @@ export function createSearchBox() {
   const form = document.createElement("form");
   form.classList.add("search-form");
 
-  const label = document.createElement("label");
-  label.htmlFor = "search-location";
-  label.textContent =
-    "Welcome to Sky Buddy! Enter a location to view the weather information";
-
   const input = document.createElement("input");
   input.type = "search";
   input.id = "search-location";
@@ -15,9 +10,10 @@ export function createSearchBox() {
   input.placeholder = "Search Location";
 
   const button = document.createElement("button");
+  button.classList.add("search-btn");
   button.textContent = "Search";
 
-  form.append(label, input, button);
+  form.append(input, button);
   searchContainer.appendChild(form);
 
   return searchContainer;
