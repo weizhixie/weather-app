@@ -64,7 +64,22 @@ body {
   text-align: right;
 }
 
-.current-time{
+.current-time {
   font-weight: bold;
   font-size: 1.8rem;
+}
+
+/* weather stats table */
+.weather-stats-table {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  font-size: 1.5rem;
+}
+
+.weather-stats-list {
+  background-color: var(--floral-white);
+  padding: 5px 12px;
+  border-radius: 5px;
 }

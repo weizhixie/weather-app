@@ -1,34 +1,61 @@
+const ul = document.createElement("ul");
+ul.classList.add("weather-stats-table");
+
 export function createWeatherStatsTable(currentConditions, days) {
-  const table = document.createElement("table");
-  const tbody = document.createElement("tbody");
   const visibility = currentConditions.visibility ?? days[0].visibility;
 
-  const row1Stats = [
-    `Humidity: ${currentConditions.humidity}%`,
-    `Feels like: ${currentConditions.feelslike}\u2103`,
-    `Wind speed: ${currentConditions.windspeed} km/h`,
-    `Wind direction: ${getCompassDirection(currentConditions.winddir)}`,
-  ];
-  const row2Stats = [
-    `UV index: ${currentConditions.uvindex}`,
-    `Pressure: ${currentConditions.pressure} hPa`,
-    `Cloud cover ${currentConditions.cloudcover}%`,
-    `Visibility: ${visibility} km`,
+  const stats = [
+    {
+      label: "Humidity",
+      value: `${currentConditions.humidity}%`,
+    },
+    {
+      label: "Feels Like",
+      value: `${currentConditions.feelslike}\u2103`,
+    },
+    {
+      label: "Wind Speed",
+      value: `${currentConditions.windspeed} km/h`,
+    },
+    {
+      label: "Wind Direction",
+      value: `${getCompassDirection(currentConditions.winddir)}`,
+    },
+    {
+      label: "UV Index",
+      value: `${currentConditions.uvindex}`,
+    },
+    {
+      label: "Pressure",
+      value: `${currentConditions.pressure} hPa`,
+    },
+    {
+      label: "Cloud Cover",
+      value: `${currentConditions.cloudcover}%`,
+    },
+    {
+      label: "Visibility",
+      value: `${visibility} km`,
+    },
   ];
 
-  tbody.append(createRow(row1Stats), createRow(row2Stats));
-  table.appendChild(tbody);
-  return table;
+  createRow(stats);
+  return ul;
 }
 
-function createRow(rowStats) {
-  const row = document.createElement("tr");
-  rowStats.forEach((stat) => {
-    const cell = document.createElement("td");
-    cell.textContent = stat;
-    row.appendChild(cell);
+function createRow(stats) {
+  stats.forEach((stat) => {
+    const li = document.createElement("li");
+    li.classList.add("weather-stats-list");
+
+    const label = document.createElement("p");
+    label.textContent = stat.label;
+    const value = document.createElement("p");
+    value.textContent = stat.value;
+
+    li.append(label, value);
+    ul.append(li);
   });
-  return row;
 }
 
 /**
