@@ -1,6 +1,7 @@
 import { createSearchBox } from "./components/searchBox.js";
 import { createWeatherSection } from "./components/weatherSection.js";
 import { createWeatherStatsTable } from "./components/weatherStatsTable.js";
+import { createHourForecastSection } from "./components/hourForecastSection.js";
 
 export class AppUI {
   constructor() {
@@ -21,7 +22,7 @@ export class AppUI {
   }
 
   renderWeatherDetails(weatherData) {
-    const { currentConditions, days } = weatherData;
+    const { currentConditions, days, hours } = weatherData;
 
     const weatherLocation = document.createElement("h1");
     weatherLocation.classList.add("weather-location");
@@ -31,6 +32,7 @@ export class AppUI {
       weatherLocation,
       createWeatherSection(currentConditions, days),
       createWeatherStatsTable(currentConditions, days),
+      createHourForecastSection(hours),
     );
   }
 }

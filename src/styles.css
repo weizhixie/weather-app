@@ -83,3 +83,17 @@ body {
   padding: 5px 12px;
   border-radius: 5px;
 }
+
+/* hour forecast section */
+.hour-forecast-section {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  overflow: auto;
+  scrollbar-width: thin;
+  padding: 10px;
+}
+
+.hour-forecast-el {
+  text-align: center;
+}
