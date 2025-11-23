@@ -97,3 +97,25 @@ body {
 .hour-forecast-el {
   text-align: center;
 }
+
+/* day forecast section */
+.day-forecast-wrapper {
+  background-color: var(--floral-white);
+  padding: 5px 20px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 5px;
+  overflow: auto;
+}
+
+.day-forecast-wrapper p:last-child {
+  justify-self: end;
+}
+
+.day-forecast-icon {
+  width: 50px;
+  height: 50px;
+}

@@ -2,6 +2,7 @@ import { createSearchBox } from "./components/searchBox.js";
 import { createWeatherSection } from "./components/weatherSection.js";
 import { createWeatherStatsTable } from "./components/weatherStatsTable.js";
 import { createHourForecastSection } from "./components/hourForecastSection.js";
+import { createDayForecastSection } from "./components/dayForecastSection.js";
 
 export class AppUI {
   constructor() {
@@ -33,6 +34,7 @@ export class AppUI {
       createWeatherSection(currentConditions, days),
       createWeatherStatsTable(currentConditions, days),
       createHourForecastSection(hours),
+      createDayForecastSection(days),
     );
   }
 }
