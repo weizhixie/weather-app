@@ -76,7 +76,7 @@ body {
 .icon-temp-wrapper {
   display: flex;
   gap: 20px;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -92,6 +92,11 @@ body {
 
 .time-cond-wrapper {
   text-align: right;
+}
+
+.humidity--wind-wrapper {
+  font-size: 1.2rem;
+  padding-top: 10px;
 }
 
 .current-time {
@@ -113,6 +118,10 @@ body {
   background-color: var(--floral-white);
   padding: 5px 12px;
   border-radius: 5px;
+}
+
+.weather-stat-value {
+  font-size: 1.2rem;
 }
 
 /* hour forecast section */

@@ -6,20 +6,20 @@ export function createWeatherStatsTable(currentConditions, days) {
 
   const stats = [
     {
-      label: "Humidity",
-      value: `${currentConditions.humidity}%`,
-    },
-    {
       label: "Feels Like",
       value: `${currentConditions.feelslike}\u2103`,
     },
     {
-      label: "Wind Speed",
-      value: `${currentConditions.windspeed} km/h`,
-    },
-    {
       label: "Wind Direction",
       value: `${getCompassDirection(currentConditions.winddir)}`,
+    },
+    {
+      label: "Sunrise",
+      value: `${currentConditions.sunrise}`,
+    },
+    {
+      label: "Sunset",
+      value: `${currentConditions.sunset}`,
     },
     {
       label: "UV Index",
@@ -51,6 +51,7 @@ function createRow(stats, ul) {
     const label = document.createElement("p");
     label.textContent = stat.label;
     const value = document.createElement("p");
+    value.classList.add("weather-stat-value");
     value.textContent = stat.value;
 
     li.append(label, value);

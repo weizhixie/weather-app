@@ -32,8 +32,26 @@ function createIconAndTemp(currentConditions, days) {
   highLowTemp.textContent = `High:${days[0].tempmax}\u2103 Low:${days[0].tempmin}\u2103`;
 
   tempWrapper.append(currentTemp, highLowTemp);
-  iconTempWrapper.append(weatherIcon, tempWrapper);
+  iconTempWrapper.append(
+    weatherIcon,
+    tempWrapper,
+    createHumidityAndWind(currentConditions),
+  );
   return iconTempWrapper;
+}
+
+function createHumidityAndWind(currentConditions) {
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("humidity--wind-wrapper");
+
+  const humidityEl = document.createElement("p");
+  humidityEl.textContent = `Humidity:${currentConditions.humidity}%`;
+
+  const windEl = document.createElement("p");
+  windEl.textContent = `Wind Speed:${currentConditions.windspeed}km/h`;
+
+  wrapper.append(humidityEl, windEl);
+  return wrapper;
 }
 
 function createTimeAndCond(currentConditions) {
