@@ -1,8 +1,8 @@
-const ul = document.createElement("ul");
-ul.classList.add("weather-stats-table");
-
 export function createWeatherStatsTable(currentConditions, days) {
   const visibility = currentConditions.visibility ?? days[0].visibility;
+
+  const ul = document.createElement("ul");
+  ul.classList.add("weather-stats-table");
 
   const stats = [
     {
@@ -39,11 +39,11 @@ export function createWeatherStatsTable(currentConditions, days) {
     },
   ];
 
-  createRow(stats);
+  createRow(stats, ul);
   return ul;
 }
 
-function createRow(stats) {
+function createRow(stats, ul) {
   stats.forEach((stat) => {
     const li = document.createElement("li");
     li.classList.add("weather-stats-list");

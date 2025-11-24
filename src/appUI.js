@@ -1,8 +1,5 @@
 import { createSearchBox } from "./components/searchBox.js";
-import { createWeatherSection } from "./components/weatherSection.js";
-import { createWeatherStatsTable } from "./components/weatherStatsTable.js";
-import { createHourForecastSection } from "./components/hourForecastSection.js";
-import { createDayForecastSection } from "./components/dayForecastSection.js";
+import { createMainContent } from "./components/mainContent.js";
 
 export class AppUI {
   constructor() {
@@ -15,26 +12,20 @@ export class AppUI {
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
       if (searchBox.value.trim()) {
         const weatherData = await fetchWeatherData(searchBox.value);
-        console.log(weatherData);
+
+        if (!weatherData) return;
+        this.renderWeatherDetails(weatherData);
       }
     });
   }
 
   renderWeatherDetails(weatherData) {
-    const { currentConditions, days, hours } = weatherData;
+    const existingMain = document.querySelector(".main-content");
+    if (existingMain) existingMain.remove();
 
-    const weatherLocation = document.createElement("h1");
-    weatherLocation.classList.add("weather-location");
-    weatherLocation.textContent = `${weatherData.address.toUpperCase()}`;
-
-    document.body.append(
-      weatherLocation,
-      createWeatherSection(currentConditions, days),
-      createWeatherStatsTable(currentConditions, days),
-      createHourForecastSection(hours),
-      createDayForecastSection(days),
-    );
+    document.body.append(createMainContent(weatherData));
   }
 }

@@ -1,5 +1,6 @@
 export function createDayForecastSection(days) {
   const dayForecastSection = document.createElement("section");
+  dayForecastSection.classList.add("day-forecast-section");
 
   days.forEach(({ datetime, icon, tempmax, tempmin }) => {
     const wrapper = document.createElement("div");
