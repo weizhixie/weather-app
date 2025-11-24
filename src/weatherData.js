@@ -2,12 +2,14 @@ import { showLoader, hideLoader } from "./components/loader.js";
 
 export async function fetchWeatherData(location = "london", units = "metric") {
   const API_KEY = "YQ54MUWZFCVRUGYE9869NNRCW";
+  const elements =
+    "datetime,tempmax,tempmin,temp,feelslike,humidity,windspeed,winddir,pressure,visibility,cloudcover,uvindex,conditions,icon,sunrise,sunset";
 
   try {
     showLoader();
 
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${units}&key=${API_KEY}&elements=datetime,tempmax,tempmin,temp,feelslike,precipprob,preciptype,humidity,windspeed,winddir,pressure,visibility,cloudcover,uvindex,conditions,icon,sunrise,sunset,description`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${units}&key=${API_KEY}&elements=${elements}`,
     );
     if (!response.ok) throw new Error(`Response status: ${response.status}`);
 
@@ -26,7 +28,6 @@ function formatWeatherData(rawData) {
   if (!rawData) return null;
 
   const currentConditions = {
-    datetime: rawData.currentConditions.datetime,
     temp: rawData.currentConditions.temp,
     feelslike: rawData.currentConditions.feelslike,
     humidity: rawData.currentConditions.humidity,
@@ -47,11 +48,8 @@ function formatWeatherData(rawData) {
     datetime: day.datetime,
     tempmax: day.tempmax,
     tempmin: day.tempmin,
-    temp: day.temp,
-    precipprob: day.precipprob,
     visibility: day.visibility,
     conditions: day.conditions,
-    description: day.description,
     icon: day.icon,
   }));
 
@@ -59,9 +57,6 @@ function formatWeatherData(rawData) {
   const hourlyForecast = rawData.days[0].hours.map((hour) => ({
     datetime: hour.datetime,
     temp: hour.temp,
-    precipprob: hour.precipprob,
-    preciptype: hour.preciptype,
-    conditions: hour.conditions,
     icon: hour.icon,
   }));
 
@@ -70,8 +65,5 @@ function formatWeatherData(rawData) {
     days: dailyForecast,
     hours: hourlyForecast,
     address: rawData.resolvedAddress,
-    timezone: rawData.timezone,
-    tzoffset: rawData.tzoffset,
-    description: rawData.description,
   };
 }
