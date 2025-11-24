@@ -3,7 +3,7 @@ import { createMainContent } from "./components/mainContent.js";
 
 export class AppUI {
   constructor() {
-    document.body.appendChild(createSearchBox());
+    document.querySelector("#header").appendChild(createSearchBox());
   }
 
   handleSearchInput(fetchWeatherData) {
@@ -16,7 +16,10 @@ export class AppUI {
       if (searchBox.value.trim()) {
         const weatherData = await fetchWeatherData(searchBox.value);
 
-        if (!weatherData) return;
+        if (!weatherData) {
+          alert("Sorry location not found");
+          return;
+        }
         this.renderWeatherDetails(weatherData);
       }
     });
