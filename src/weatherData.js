@@ -53,12 +53,7 @@ function formatWeatherData(rawData) {
     icon: day.icon,
   }));
 
-  // 24hours forecast of the first day of 15 days forecast
-  const hourlyForecast = rawData.days[0].hours.map((hour) => ({
-    datetime: hour.datetime,
-    temp: hour.temp,
-    icon: hour.icon,
-  }));
+  const hourlyForecast = getNext24HourlyForecast(rawData);
 
   return {
     currentConditions,
@@ -66,4 +61,19 @@ function formatWeatherData(rawData) {
     hours: hourlyForecast,
     address: rawData.resolvedAddress,
   };
+}
+
+function getNext24HourlyForecast(rawData) {
+  const allHours = rawData.days.flatMap((day) => day.hours);
+
+  const now = new Date();
+  const currentHour = `${now.toTimeString().slice(0, 2)}:00:00`;
+
+  const currentHourIndex = allHours.findIndex(
+    (hour) => hour.datetime === currentHour,
+  );
+
+  const next24Hours = allHours.slice(currentHourIndex, currentHourIndex + 24);
+
+  return next24Hours;
 }
