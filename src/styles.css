@@ -90,6 +90,24 @@ body {
   font-size: 4.5rem;
 }
 
+.metric-unit-btn,
+.us-unit-btn {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: var(--floral-white);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.us-unit-btn {
+  margin-left: 5px;
+}
+
+.metric-unit-btn:hover,
+.us-unit-btn:hover {
+  background-color: var(--pearl-aqua);
+}
+
 .time-cond-wrapper {
   text-align: right;
 }

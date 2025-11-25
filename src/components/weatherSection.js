@@ -1,16 +1,20 @@
-export function createWeatherSection(currentConditions, days) {
+import { unitLabels } from "../utils/unitLabels.js";
+
+export function createWeatherSection(currentConditions, days, currentUnit) {
   const weatherSection = document.createElement("section");
   weatherSection.classList.add("weather-section");
 
   weatherSection.append(
-    createIconAndTemp(currentConditions, days),
+    createIconAndTemp(currentConditions, days, currentUnit),
     createTimeAndCond(currentConditions),
   );
 
   return weatherSection;
 }
 
-function createIconAndTemp(currentConditions, days) {
+function createIconAndTemp(currentConditions, days, currentUnit) {
+  const unitLabel = unitLabels()[currentUnit];
+
   const iconTempWrapper = document.createElement("div");
   iconTempWrapper.classList.add("icon-temp-wrapper");
 
@@ -26,31 +30,41 @@ function createIconAndTemp(currentConditions, days) {
 
   const currentTemp = document.createElement("p");
   currentTemp.classList.add("current-temp");
-  currentTemp.textContent = `${currentConditions.temp}\u2103`;
+  currentTemp.textContent = `${currentConditions.temp}${unitLabel.temp}`;
 
   const highLowTemp = document.createElement("p");
-  highLowTemp.textContent = `High:${days[0].tempmax}\u2103 Low:${days[0].tempmin}\u2103`;
+  highLowTemp.textContent = `High:${days[0].tempmax}${unitLabel.temp} Low:${days[0].tempmin}${unitLabel.temp}`;
 
   tempWrapper.append(currentTemp, highLowTemp);
   iconTempWrapper.append(
     weatherIcon,
     tempWrapper,
-    createHumidityAndWind(currentConditions),
+    createHumidityAndWind(currentConditions, currentUnit),
   );
   return iconTempWrapper;
 }
 
-function createHumidityAndWind(currentConditions) {
+function createHumidityAndWind(currentConditions, currentUnit) {
+  const unitLabel = unitLabels()[currentUnit];
+
   const wrapper = document.createElement("div");
   wrapper.classList.add("humidity--wind-wrapper");
+
+  const metricUnitBtn = document.createElement("button");
+  metricUnitBtn.classList.add("metric-unit-btn");
+  metricUnitBtn.textContent = "Metric (°C, km)";
+
+  const usUnitBtn = document.createElement("button");
+  usUnitBtn.classList.add("us-unit-btn");
+  usUnitBtn.textContent = "US (°F, miles)";
 
   const humidityEl = document.createElement("p");
   humidityEl.textContent = `Humidity:${currentConditions.humidity}%`;
 
   const windEl = document.createElement("p");
-  windEl.textContent = `Wind Speed:${currentConditions.windspeed}km/h`;
+  windEl.textContent = `Wind Speed:${currentConditions.windspeed}${unitLabel.windspeed}`;
 
-  wrapper.append(humidityEl, windEl);
+  wrapper.append(metricUnitBtn, usUnitBtn, humidityEl, windEl);
   return wrapper;
 }
 

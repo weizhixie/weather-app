@@ -1,4 +1,8 @@
-export function createDayForecastSection(days) {
+import { unitLabels } from "../utils/unitLabels.js";
+
+export function createDayForecastSection(days, currentUnit) {
+  const unitLabel = unitLabels()[currentUnit];
+
   const dayForecastSection = document.createElement("section");
   dayForecastSection.classList.add("day-forecast-section");
 
@@ -19,7 +23,7 @@ export function createDayForecastSection(days) {
       .catch((error) => console.error(`Failed to load icon ${error}`));
 
     const tempEl = document.createElement("p");
-    tempEl.textContent = `${tempmax}\u2103-${tempmin}\u2103`;
+    tempEl.textContent = `${tempmax}${unitLabel.temp}-${tempmin}${unitLabel.temp}`;
 
     wrapper.append(timeEl, weatherIcon, tempEl);
     dayForecastSection.append(wrapper);

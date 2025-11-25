@@ -3,7 +3,7 @@ import { createWeatherStatsTable } from "./weatherStatsTable.js";
 import { createHourForecastSection } from "./hourForecastSection.js";
 import { createDayForecastSection } from "./dayForecastSection.js";
 
-export function createMainContent(weatherData) {
+export function createMainContent(weatherData, currentUnit) {
   const { currentConditions, days, hours } = weatherData;
 
   const mainContent = document.createElement("main");
@@ -15,10 +15,10 @@ export function createMainContent(weatherData) {
 
   mainContent.append(
     weatherLocation,
-    createWeatherSection(currentConditions, days),
-    createWeatherStatsTable(currentConditions, days),
-    createHourForecastSection(hours),
-    createDayForecastSection(days),
+    createWeatherSection(currentConditions, days, currentUnit),
+    createWeatherStatsTable(currentConditions, days, currentUnit),
+    createHourForecastSection(hours, currentUnit),
+    createDayForecastSection(days, currentUnit),
   );
 
   return mainContent;

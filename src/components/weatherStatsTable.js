@@ -1,5 +1,8 @@
-export function createWeatherStatsTable(currentConditions, days) {
+import { unitLabels } from "../utils/unitLabels.js";
+
+export function createWeatherStatsTable(currentConditions, days, currentUnit) {
   const visibility = currentConditions.visibility ?? days[0].visibility;
+  const unitLabel = unitLabels()[currentUnit];
 
   const ul = document.createElement("ul");
   ul.classList.add("weather-stats-table");
@@ -7,7 +10,7 @@ export function createWeatherStatsTable(currentConditions, days) {
   const stats = [
     {
       label: "Feels Like",
-      value: `${currentConditions.feelslike}\u2103`,
+      value: `${currentConditions.feelslike}${unitLabel.temp}`,
     },
     {
       label: "Wind Direction",
@@ -35,7 +38,7 @@ export function createWeatherStatsTable(currentConditions, days) {
     },
     {
       label: "Visibility",
-      value: `${visibility} km`,
+      value: `${visibility} ${unitLabel.visibility}`,
     },
   ];
 

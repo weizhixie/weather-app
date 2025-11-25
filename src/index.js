@@ -6,3 +6,4 @@ const weatherData = await fetchWeatherData();
 const ui = new AppUI();
 ui.handleSearchInput(fetchWeatherData);
 ui.renderWeatherDetails(weatherData);
+ui.toggleUnit(fetchWeatherData);

@@ -1,4 +1,8 @@
-export function createHourForecastSection(hours) {
+import { unitLabels } from "../utils/unitLabels.js";
+
+export function createHourForecastSection(hours, currentUnit) {
+  const unitLabel = unitLabels()[currentUnit];
+
   const hourForecastSection = document.createElement("section");
   hourForecastSection.classList.add("hour-forecast-section");
 
@@ -20,7 +24,7 @@ export function createHourForecastSection(hours) {
 
     const tempEl = document.createElement("p");
     tempEl.classList.add("hour-forecast-el");
-    tempEl.textContent = `${temp}\u2103`;
+    tempEl.textContent = `${temp}${unitLabel.temp}`;
 
     wrapper.append(timeEl, weatherIcon, tempEl);
     hourForecastSection.append(wrapper);
